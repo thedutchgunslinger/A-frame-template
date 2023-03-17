@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- https://aframe.io/docs/1.0.0/introduction/ -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <!-- https://github.com/c-frame/aframe-extras -->
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    <!-- https://github.com/c-frame/aframe-super-hands-component -->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <!-- https://github.com/n5ro/aframe-physics-system -->
+    <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+    <!-- https://github.com/wmurphyrd/aframe-physics-extras -->
+    <script src="https://cdn.jsdelivr.net/npm/a-super-sky@1.1.0/super-sky.js"></script>
+    <!-- https://github.com/kylebakerio/a-super-sky -->
+    <script src="js/controls.js"></script>
+    <!-- https://aframe-locomotion.fern.solutions/docs/#reference/movement/snap-turn.component/ -->
+
+  <title>My A-frame project</title>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets> 
+        <!-- ASSETS MANAGER -->
+        <!-- https://aframe.io/docs/1.0.0/core/asset-management-system.html -->
+      </a-assets>
+      
+      <!-- PLAYER RIG -->
+      <a-entity
+        id="rig"
+        movement-controls="constrainToNavMesh: false"
+        position="0 0 0"
+      >
+        <a-camera id="camera" position="0 1.6 0" look-controls></a-camera>
+        <a-entity
+          physics-collider
+          static-body="shape: sphere; sphereRadius: 0.05;"
+          sphere-collider="objects: a-box"
+          super-hands="colliderEvent: collisions;
+                            colliderEventProperty: els;
+                            colliderEndEvent: collisions;
+                            colliderEndEventProperty: clearedEls"
+          collision-filter="group: hands;
+                                   collidesWith: default;
+                                   collisionForces: false"
+          hand-controls="hand: left"
+        >
+        </a-entity>
+        <a-entity
+          physics-collider
+          static-body="shape: sphere; sphereRadius: 0.05;"
+          sphere-collider="objects: a-box"
+          super-hands="colliderEvent: collisions;
+                            colliderEventProperty: els;
+                            colliderEndEvent: collisions;
+                            colliderEndEventProperty: clearedEls"
+          collision-filter="group: hands;
+                                   collidesWith: default;
+                                   collisionForces: false"
+          hand-controls="hand: right"
+          snap-turn="target: #rig; reference: #camera; angle: 45"
+        ></a-entity>
+      </a-entity>
+
+      <!-- SCENE -->
+    </a-scene>
+  </body>
+</html>
